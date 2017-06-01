@@ -1,0 +1,69 @@
+
+//GRID HELPER
+
+@mixin m($name, $max: 0, $min: 0) {
+
+  //Extra small devices (phones,  < 768px )
+  @if $name == "xs" {
+    @media (max-width: $max) {
+      @content;
+    }
+  }
+
+
+  //Small devices (tablets, 768px and 991up )
+  @if $name == "sm" {
+    @media (min-width: $min) and (max-width: $max ){
+      @content;
+    }
+  }
+
+
+  //Medium devices (desktops,992px and 1199px)
+  @if $name == "md" {
+    @media (min-width: $min) and (max-width: $max ){
+      @content;
+    }
+  }
+
+  @if $name == 'lg' {
+    @media (min-width: $min) { @content; }
+  }
+
+  // Max Width
+  @if $name == 'maxW' {
+    @media (max-width: $max) { @content; }
+  }
+
+  // Min Width
+  @if $name == 'minW' {
+    @media (min-width: $min) { @content; }
+  }
+
+  // MaxH
+  @if $name == 'maxH' {
+    @media (max-height: $max) { @content; }
+  }
+  // MinH
+  @if $name == 'minH' {
+    @media (min-height: $min) { @content; }
+  }
+
+  //Between MinW and MaxW
+
+  @if $name == 'betweenW' {
+    @media (min-width: $min) and (max-width: $max ){
+      @content;
+    }
+  }
+
+}
+
+//TRANSITION HELPER
+@mixin t($transition...) {
+  -moz-transition:    $transition;
+  -o-transition:      $transition;
+  -webkit-transition: $transition;
+  -ms-transition:     $transition;
+  transition:         $transition;
+}
