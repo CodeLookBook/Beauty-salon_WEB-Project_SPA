@@ -1,9 +1,8 @@
 <template lang="pug">
 
     layout
-
         slide.GREET
-            div.FON-IMG
+            .GREET-FON-IMG
                 greet-card
 
         slide#ORDER-SLIDE.ORDER(ref="oderSlid")
@@ -25,21 +24,13 @@
     //DECOR: +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     .GREET{
-        .FON-IMG{
+        .GREET-FON-IMG{
             width: 100%;
             height: 100%;
             background-image: url("/img/GREET-SLIDE-FON2.jpg");
             background-size: cover;
             background-position: center center;
         }
-/*        &>DIV{
-            &>DIV{
-                vertical-align: bottom;
-                @include m(maxW, $max: 425px){
-                    vertical-align: middle;
-                }
-            }
-        }*/
     }
 
     .ORDER{

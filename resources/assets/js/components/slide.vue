@@ -27,8 +27,13 @@
 
         &>DIV{
             display: table-row;
+            width: 100%;
+            height: 100%;
+
             &>DIV{
                 display: table-cell;
+                width: 100%;
+                height: 100%;
             }
         }
 

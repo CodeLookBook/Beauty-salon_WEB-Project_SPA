@@ -47,7 +47,7 @@ import Vuex     from 'vuex'
 window.SrcError                 = require('./errors/SrcError');
 window.NullReferenseError       = require('./errors/NullReferenceError');
 window.UndefindReferenceError   = require('./errors/UndefindReferenceError');
-// window.ObjectTypeError          = require('./errors/ObjectTypeError');
+window.ObjectTypeError          = require('./errors/ObjectTypeError');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
