@@ -148,6 +148,9 @@ export default {
 
                     state.loadServicesResponse = error;
 
+                    if (parseInt(error.data.state) == 401) {
+                        router.push({name: 'adminSignin'});
+                    }
                 }
             );
 
@@ -156,6 +159,7 @@ export default {
         CreateService(state, oService){
 
             let token = localStorage.getItem('token');
+
             state.createServiceResponse = {
                 ok: null,
                 status: null,
@@ -173,7 +177,10 @@ export default {
             }, error => {
 
                 state.createServiceResponse = error;
-                console.log('SERVICES => CreateOrder() => response: ' +  error);
+
+                if(parseInt(error.data.state) == 401){
+                    router.push({name: 'adminSignin'});
+                }
 
             });
 
@@ -195,12 +202,13 @@ export default {
             }).then(
                 response => {
                     state.updateServiceResponse = response;
-                    console.log('Services => UpdateService() => response: ')
-                    console.log(response)
+
                 }, error => {
                     state.updateServiceResponse = error;
-                    console.log('Services => UpdateService() => error: ')
-                    console.log(error)
+
+                    if(parseInt(error.data.state) == 401){
+                        router.push({name: 'adminSignin'});
+                    }
                 },
             );
 
@@ -227,6 +235,10 @@ export default {
 
                     state.deleteServiceResponse = error;
 
+                    if(parseInt(error.data.state) == 401){
+                        router.push({name: 'adminSignin'});
+                    }
+
                 }
             )
 
@@ -251,6 +263,10 @@ export default {
 
                     state.loadTrashedServicesResponse = error;
 
+                    if(parseInt(error.data.state) == 401){
+                        router.push({name: 'adminSignin'});
+                    }
+
                 }
             );
 
@@ -274,6 +290,10 @@ export default {
                 }, error => {
 
                     state.deleteTrashedServiceResponse = error;
+
+                    if(parseInt(error.data.state) == 401){
+                        router.push({name: 'adminSignin'});
+                    }
 
                 }
             );
@@ -300,10 +320,15 @@ export default {
 
                     state.restoreTrashedServiceResponse = error;
 
+                    if(parseInt(error.data.state) == 401){
+                        router.push({name: 'adminSignin'});
+                    }
+
                 }
             );
 
         },
+
     },
 
     actions: {

@@ -8,10 +8,13 @@ export default {
             isValid: null,
         },
         response: null,
-
     },
 
     getters:{
+
+        token(state){
+             return state.token.key;
+        },
 
         /**
          * @return {boolean}
@@ -72,12 +75,12 @@ export default {
 
     mutations:{
 
-        GetTokenFromServer(state, {email, password}){
+        GetTokenFromServer(state, credentials){
 
             //Requests and save token
             Vue.http.post('api/admin/signin', {
-                'email':    email ,
-                'password': password,
+                'email':    credentials.email ,
+                'password': credentials.password,
             }).then(response=>{
 
                 let r = response,

@@ -150,7 +150,7 @@
 
         computed:{
             ...mapGetters('user', [
-                'isUserTokenValid',
+                'token',
                 'userSigninResponseOk',
                 'userSigninResponseStatus',
                 'userSigninResponseData',
@@ -164,9 +164,11 @@
 
         watch:{
 
-            isUserTokenValid (newV, oldV){
+            token(newV, oldV){
+
                 let v = this;
                 v.ValidateToken();
+
             },
 
             userSigninResponseData  (newV, oldV){

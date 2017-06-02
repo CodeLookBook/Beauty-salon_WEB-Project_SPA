@@ -67,7 +67,8 @@ export default {
                     data         : e.data,
                 };
 
-                if(e.status == 401){
+                if(parseInt(error.data.state) == 401){
+                    router.push({name: 'adminSignin'});
                     localStorage.setItem('isAdminSignin', false);
                 }
 

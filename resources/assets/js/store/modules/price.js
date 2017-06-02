@@ -32,8 +32,10 @@ export default {
             }, error=>{
                 state.loadPriceResponse = error;
 
-                console.log('error: ')
-                console.log(error)
+                if(parseInt(error.data.state) == 401){
+                    router.push({name: 'adminSignin'});
+                }
+
             });
 
         },

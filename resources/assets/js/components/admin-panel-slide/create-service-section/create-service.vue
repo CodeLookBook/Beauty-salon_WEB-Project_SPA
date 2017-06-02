@@ -102,7 +102,6 @@
             createServiceResponseOk(newV, oldV){
 
                 let v = this;
-                alert('CreateService => Ok() => newV(before): ' + newV);
 
                 if(newV) {
                     v.DeleteCookie('name');

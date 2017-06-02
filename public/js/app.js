@@ -16511,7 +16511,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     // COMPUTED FIELDS
     //*********************************************************************
 
-    computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('user', ['isUserTokenValid', 'userSigninResponseOk', 'userSigninResponseStatus', 'userSigninResponseData'])),
+    computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])('user', ['token', 'userSigninResponseOk', 'userSigninResponseStatus', 'userSigninResponseData'])),
 
     //*********************************************************************
     // WATCHED FIELDS
@@ -16519,7 +16519,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     watch: {
 
-        isUserTokenValid(newV, oldV) {
+        token(newV, oldV) {
+
             let v = this;
             v.ValidateToken();
         },
@@ -17943,7 +17944,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         createServiceResponseOk(newV, oldV) {
 
             let v = this;
-            alert('CreateService => Ok() => newV(before): ' + newV);
 
             if (newV) {
                 v.DeleteCookie('name');
@@ -24306,7 +24306,8 @@ class UndefinedReferenceError extends Error {
                     data: e.data
                 };
 
-                if (e.status == 401) {
+                if (parseInt(error.data.state) == 401) {
+                    router.push({ name: 'adminSignin' });
                     localStorage.setItem('isAdminSignin', false);
                 }
             });
@@ -24406,17 +24407,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     mutations: {
 
-        LoadOrders(state, { start, end }) {
+        LoadOrders(state, oDates) {
 
             let token = localStorage.getItem('token');
 
-            Vue.http.get('/api/orders/range/' + start + '/' + end + '?token=' + token).then(response => {
+            Vue.http.get('/api/orders/range/' + oDates.start + '/' + oDates.end + '?token=' + token).then(response => {
 
                 state.orders = response.data.orders;
                 state.loadOrdersResponse = response;
             }, error => {
 
                 state.createOrderResponse = error;
+
+                if (parseInt(error.data.state) == 401) {
+                    router.push({ name: 'adminSignin' });
+                }
             });
         },
 
@@ -24444,6 +24449,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 state.createOrderResponse = response;
             }, error => {
                 state.createOrderResponse = error;
+
+                if (parseInt(error.data.state) == 401) {
+                    router.push({ name: 'adminSignin' });
+                }
             });
         },
 
@@ -24467,13 +24476,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 }
             }).then(response => {
                 state.updateOrderResponse = response;
-
-                console.log('Orders => UpdateOrder() => response: ');
-                console.log(response);
             }, error => {
                 state.updateOrderResponse = error;
-                console.log('Orders => UpdateOrder() => error: ');
-                console.log(error);
+
+                if (parseInt(error.data.state) == 401) {
+                    router.push({ name: 'adminSignin' });
+                }
             });
         },
 
@@ -24487,6 +24495,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }, error => {
 
                 state.deleteOrderResponse = error;
+
+                if (parseInt(error.data.state) == 401) {
+                    router.push({ name: 'adminSignin' });
+                }
             });
         }
 
@@ -24550,8 +24562,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }, error => {
                 state.loadPriceResponse = error;
 
-                console.log('error: ');
-                console.log(error);
+                if (parseInt(error.data.state) == 401) {
+                    router.push({ name: 'adminSignin' });
+                }
             });
         }
 
@@ -24951,12 +24964,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }, error => {
 
                 state.loadServicesResponse = error;
+
+                if (parseInt(error.data.state) == 401) {
+                    router.push({ name: 'adminSignin' });
+                }
             });
         },
 
         CreateService(state, oService) {
 
             let token = localStorage.getItem('token');
+
             state.createServiceResponse = {
                 ok: null,
                 status: null,
@@ -24973,7 +24991,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }, error => {
 
                 state.createServiceResponse = error;
-                console.log('SERVICES => CreateOrder() => response: ' + error);
+
+                if (parseInt(error.data.state) == 401) {
+                    router.push({ name: 'adminSignin' });
+                }
             });
         },
         UpdateService(state, oService) {
@@ -24992,12 +25013,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 name: oService.name
             }).then(response => {
                 state.updateServiceResponse = response;
-                console.log('Services => UpdateService() => response: ');
-                console.log(response);
             }, error => {
                 state.updateServiceResponse = error;
-                console.log('Services => UpdateService() => error: ');
-                console.log(error);
+
+                if (parseInt(error.data.state) == 401) {
+                    router.push({ name: 'adminSignin' });
+                }
             });
         },
 
@@ -25018,6 +25039,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }, error => {
 
                 state.deleteServiceResponse = error;
+
+                if (parseInt(error.data.state) == 401) {
+                    router.push({ name: 'adminSignin' });
+                }
             });
         },
         LoadTrashedServices(state) {
@@ -25038,6 +25063,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }, error => {
 
                 state.loadTrashedServicesResponse = error;
+
+                if (parseInt(error.data.state) == 401) {
+                    router.push({ name: 'adminSignin' });
+                }
             });
         },
         DeleteTrashedService(state, id) {
@@ -25057,6 +25086,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }, error => {
 
                 state.deleteTrashedServiceResponse = error;
+
+                if (parseInt(error.data.state) == 401) {
+                    router.push({ name: 'adminSignin' });
+                }
             });
         },
 
@@ -25077,8 +25110,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }, error => {
 
                 state.restoreTrashedServiceResponse = error;
+
+                if (parseInt(error.data.state) == 401) {
+                    router.push({ name: 'adminSignin' });
+                }
             });
         }
+
     },
 
     actions: {
@@ -25121,10 +25159,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             isValid: null
         },
         response: null
-
     },
 
     getters: {
+
+        token(state) {
+            return state.token.key;
+        },
 
         /**
          * @return {boolean}
@@ -25183,12 +25224,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     mutations: {
 
-        GetTokenFromServer(state, { email, password }) {
+        GetTokenFromServer(state, credentials) {
 
             //Requests and save token
             Vue.http.post('api/admin/signin', {
-                'email': email,
-                'password': password
+                'email': credentials.email,
+                'password': credentials.password
             }).then(response => {
 
                 let r = response,

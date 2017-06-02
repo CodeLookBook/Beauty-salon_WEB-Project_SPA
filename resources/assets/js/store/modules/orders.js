@@ -79,11 +79,11 @@ export default {
 
     mutations:{
 
-        LoadOrders(state, {start, end}){
+        LoadOrders(state, oDates){
 
             let token = localStorage.getItem('token');
 
-            Vue.http.get('/api/orders/range/' + start + '/' + end + '?token=' + token).then(response => {
+            Vue.http.get('/api/orders/range/' + oDates.start + '/' + oDates.end + '?token=' + token).then(response => {
 
                     state.orders = response.data.orders;
                     state.loadOrdersResponse = response;
@@ -92,6 +92,9 @@ export default {
 
                     state.createOrderResponse = error;
 
+                    if(parseInt(error.data.state) == 401){
+                        router.push({name: 'adminSignin'});
+                    }
                 }
             );
 
@@ -123,6 +126,10 @@ export default {
             }, error =>{
                 state.createOrderResponse = error;
 
+                if(parseInt(error.data.state) == 401){
+                    router.push({name: 'adminSignin'});
+                }
+
             });
         },
 
@@ -146,14 +153,12 @@ export default {
                 }
             }).then(response => {
                 state.updateOrderResponse = response;
-
-                console.log('Orders => UpdateOrder() => response: ')
-                console.log(response)
-
             }, error => {
                 state.updateOrderResponse = error;
-                console.log('Orders => UpdateOrder() => error: ')
-                console.log(error)
+
+                if(parseInt(error.data.state) == 401){
+                    router.push({name: 'adminSignin'});
+                }
             });
         },
 
@@ -168,6 +173,10 @@ export default {
             }, error=>{
 
                 state.deleteOrderResponse = error;
+
+                if(parseInt(error.data.state) == 401){
+                    router.push({name: 'adminSignin'});
+                }
 
             });
 
